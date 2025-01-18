@@ -7,6 +7,8 @@ export const createUserRouter = ({ userModel }) => {
   const userController = new UserController({ userModel });
 
   userRouter.get("/", userController.getAll);
+  userRouter.post("/", userController.createUser);
+  userRouter.patch("/:id", userController.updateUser);
 
   return userRouter;
 };

@@ -1,4 +1,3 @@
-// Get the client
 import mysql from "mysql2/promise";
 
 process.loadEnvFile();

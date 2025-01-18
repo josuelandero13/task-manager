@@ -1,9 +1,10 @@
-import express from "express";
+import express, { json }  from "express";
 import { createUserRouter } from "./routes/users.js";
 
 export const createApp = ({ userModel }) => {
   const app = express();
 
+  app.use(json())
   app.disable("x-powered-by");
 
   app.use("/users", createUserRouter({ userModel }));
