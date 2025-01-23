@@ -1,5 +1,7 @@
-import { createApp } from "./app.js";
+import app from "./app.js";
 
-import { UserModel } from "../src/models/users.js";
+const PORT = process.env.PORT ?? 1234;
 
-createApp({ userModel: UserModel });
+app.listen(PORT, () => {
+  console.log(`server listening on port http://localhost:${PORT}`);
+});

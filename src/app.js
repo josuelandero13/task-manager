@@ -1,17 +1,14 @@
-import express, { json }  from "express";
-import { createUserRouter } from "./routes/users.js";
+import express, { json } from "express";
+import userRouter from "./routes/users.js";
+import { errorHandler } from "../src/middlewares/errorHandler.js";
 
-export const createApp = ({ userModel }) => {
-  const app = express();
+const app = express();
 
-  app.use(json())
-  app.disable("x-powered-by");
+app.use(json());
+app.disable("x-powered-by");
 
-  app.use("/users", createUserRouter({ userModel }));
+app.use("/users", userRouter);
 
-  const PORT = process.env.PORT ?? 1234;
+app.use(errorHandler);
 
-  app.listen(PORT, () => {
-    console.log(`server listening on port http://localhost:${PORT}`);
-  });
-};
+export default app;

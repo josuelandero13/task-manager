@@ -10,4 +10,4 @@ const connection = await mysql.createConnection({
   port: process.env.DB_PORT,
 });
 
-export default connection;
+export { connection };
