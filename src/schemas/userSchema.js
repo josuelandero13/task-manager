@@ -11,8 +11,7 @@ const userSchema = z.object({
     .string({
       invalid_type_error: "User last name must be a string",
       required_error: "User last name is required.",
-    })
-    .min(1, { message: "Last name is required." }),
+    }),
   email: z.string().email({ message: "It must be a valid email." }),
   password: z
     .string()
@@ -27,7 +26,7 @@ const userSchema = z.object({
   role: z.enum(["admin", "user"], {
     message: "Role must be either admin or user",
   }),
-  is_active: z.boolean(),
+  is_active: z.boolean( { message: "State must be a boolean" }),
 });
 
 export function validateUser(input) {

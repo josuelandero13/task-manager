@@ -21,7 +21,7 @@ export const createUser = async ({ input }) => {
     throw new Error("Error al crear el usuario");
   }
 
-  return newUser[0];
+  return newUser;
 };
 
 export const updateUser = async ({ id, result }) => {
