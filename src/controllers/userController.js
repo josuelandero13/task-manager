@@ -1,4 +1,4 @@
-import { validateUser, validateUserUpdate } from "../schemas/userSchema.js";
+import { validateUserUpdate } from "../schemas/userSchema.js";
 import * as userService from "../services/userService.js";
 
 export const getAll = async (_, res) => {
@@ -15,20 +15,6 @@ export const getUserById = async (req, res) => {
   if (user) return res.json(user);
 
   res.status(404).json({ message: "User not found" });
-};
-
-export const createUser = async (req, res) => {
-  const result = validateUser(req.body);
-
-  if (!result.success) {
-    return await res
-      .status(422)
-      .json({ error: JSON.parse(result.error.message) });
-  }
-
-  const newUser = await userService.createUser({ input: result.data });
-
-  res.status(201).json(newUser);
 };
 
 export const updateUser = async (req, res, next) => {

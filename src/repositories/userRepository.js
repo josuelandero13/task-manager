@@ -1,4 +1,5 @@
 import { connection } from "../config/db.js";
+import argon2 from "argon2";
 
 export const fetchUserById = async (id) => {
   const [user] = await connection.query(
@@ -19,14 +20,15 @@ export const getAll = async () => {
 };
 
 export const createUser = async ({ input }) => {
-  const { name, last_name, password, email, profile_picture, role, is_active } =
+  const hashedPassword = await argon2.hash(input.password);
+  const { name, last_name, email, profile_picture, role, is_active } =
     input;
 
   try {
     const [insertResult] = await connection.query(
       `INSERT INTO users (name, last_name, password, email, profile_picture, role, is_active)
         VALUES (?, ?, ?, ?, ?, ?, ?);`,
-      [name, last_name, password, email, profile_picture, role, is_active]
+      [name, last_name, hashedPassword, email, profile_picture, role, is_active]
     );
 
     const userId = insertResult.insertId;
@@ -35,8 +37,7 @@ export const createUser = async ({ input }) => {
 
     return user;
   } catch (e) {
-    console.error("Error al crear el usuario:", e);
-    throw new Error("Error creating user");
+    throw new Error("Error creating user", e);
   }
 };
 
@@ -75,3 +76,13 @@ export const deleteUser = async (id) => {
 
   return deleteResult;
 };
+
+export const findByEmail = async (email) => {
+  const [user] = await pool.query(
+    `SELECT name, last_name, email, profile_picture, role, is_active
+     FROM users
+     WHERE email = ?;`,
+    [email]
+  );
+  return user
+}

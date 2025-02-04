@@ -15,6 +15,11 @@ export const getAllUsers = async () => {
 };
 
 export const createUser = async ({ input }) => {
+  const { email } = input;
+  const existingUser = await userRepository.findByEmail(email);
+
+  if (existingUser) return res.status(400).json({ error: "The user already exists" });
+
   const newUser = await userRepository.createUser({ input });
 
   if (newUser.length === 0) {
@@ -40,3 +45,4 @@ export const deleteUser = async (id) => {
 
   return deleteResult;
 };
+
