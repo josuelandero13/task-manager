@@ -8,6 +8,7 @@ export const apiFetch = async (endpoint, options = {}) => {
   };
 
   const token = localStorage.getItem("token");
+
   if (token) {
     defaultHeaders["Authorization"] = `Bearer ${token}`;
   }
