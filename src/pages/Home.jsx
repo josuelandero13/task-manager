@@ -4,17 +4,17 @@ const Home = () => {
   return (
     <div className="home-container">
       <header className="home-header">
-        <h1>Bienvenido a Task Manager</h1>
-        <p>Organiza tus tareas de manera eficiente y sencilla.</p>
+        <h1>Welcome to task manager</h1>
+        <p>Organize your tasks efficiently and easily.</p>
       </header>
       <section className="home-features">
         <div className="feature-card">
-          <h2>Gestión de Tareas</h2>
-          <p>Crea, edita y elimina tareas fácilmente.</p>
+          <h2>Task Management</h2>
+          <p>Create, edit and delete tasks easily.</p>
         </div>
         <div className="feature-card">
-          <h2>Colaboración</h2>
-          <p>Trabaja en equipo y comparte tareas con otros.</p>
+          <h2>Collaboration</h2>
+          <p>Work as a team and share tasks with others.</p>
         </div>
       </section>
     </div>

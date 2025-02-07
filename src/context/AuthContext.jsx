@@ -14,7 +14,6 @@ const authReducer = (state, action) => {
 };
 
 export const AuthProvider = ({ children }) => {
-    console.log(children)
     const [state, dispatch] = useReducer(authReducer, { user: null, token: null });
 
     return (
