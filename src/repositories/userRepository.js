@@ -1,5 +1,5 @@
-import { connection } from "../config/db.js";
 import argon2 from "argon2";
+import { connection } from "../config/db.js";
 
 export const fetchUserById = async (id) => {
   const [user] = await connection.query(
@@ -20,24 +20,29 @@ export const getAll = async () => {
 };
 
 export const createUser = async ({ input }) => {
-  const hashedPassword = await argon2.hash(input.password);
-  const { name, last_name, email, profile_picture, role, is_active } =
-    input;
+  const { name, last_name, email, password, profile_picture, role, is_active } = input;
 
   try {
+    const hashedPassword = await argon2.hash(password)
+
     const [insertResult] = await connection.query(
       `INSERT INTO users (name, last_name, password, email, profile_picture, role, is_active)
-        VALUES (?, ?, ?, ?, ?, ?, ?);`,
+       VALUES (?, ?, ?, ?, ?, ?, ?);`,
       [name, last_name, hashedPassword, email, profile_picture, role, is_active]
     );
+
+    if (insertResult.affectedRows === 0) {
+      throw new Error("No se pudo insertar el usuario");
+    }
 
     const userId = insertResult.insertId;
 
     const [user] = await fetchUserById(userId);
 
     return user;
-  } catch (e) {
-    throw new Error("Error creating user", e);
+  } catch (error) {
+    console.error("Error en createUser:", error.message);
+    throw new Error("Error creating user: " + error.message);
   }
 };
 
@@ -78,8 +83,8 @@ export const deleteUser = async (id) => {
 };
 
 export const findByEmail = async (email) => {
-  const [user] = await pool.query(
-    `SELECT name, last_name, email, profile_picture, role, is_active
+  const [user] = await connection.query(
+    `SELECT id, name, email, password
      FROM users
      WHERE email = ?;`,
     [email]

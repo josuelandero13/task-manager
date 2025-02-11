@@ -21,7 +21,7 @@ export const register = async (req, res) => {
 
     const newUser = await userService.createUser({ input: result.data });
 
-    res.status(201).json({ message: "Successfully registered user", userId });
+    res.status(201).json({ message: "Successfully registered user"});
   } catch (error) {
     res.status(500).json({ error: "Registration error" });
   }
@@ -29,16 +29,22 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
+    const DATA = 0;
     const { email, password } = req.body;
     const user = await findByEmail(email);
+    const dataUserPassword = user[DATA].password
+    const dataUserId = user[DATA].id
+
     if (!user) return res.status(400).json({ error: "User not found" });
 
-    const isPasswordValid = await argon2.verify(user.password, password);
+    const isPasswordValid = await argon2.verify(dataUserPassword, password);
     if (!isPasswordValid) return res.status(400).json({ error: "Incorrect password" });
 
-    const token = jwt.sign({ userId: user.id }, process.env.AUTH_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({ userId: dataUserId }, process.env.AUTH_SECRET, { expiresIn: "1h" });
+
     res.json({ message: "Successful login!", token });
   } catch (error) {
+    console.log("Login error", error);
     res.status(500).json({ error: "Login error" });
   }
 }
