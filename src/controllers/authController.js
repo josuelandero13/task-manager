@@ -11,7 +11,8 @@ export const register = async (req, res) => {
     const result = validateUser(req.body);
     const { email, password } = req.body;
 
-    if (!email || !password) return res.status(400).json({ error: "Required fields" });
+    if (!email || !password)
+      return res.status(400).json({ error: "Required fields" });
 
     if (!result.success) {
       return await res
@@ -21,30 +22,42 @@ export const register = async (req, res) => {
 
     const newUser = await userService.createUser({ input: result.data });
 
-    res.status(201).json({ message: "Successfully registered user"});
+    res.status(201).json({ message: "Successfully registered user" });
   } catch (error) {
     res.status(500).json({ error: "Registration error" });
   }
-}
+};
 
 export const login = async (req, res) => {
   try {
     const DATA = 0;
     const { email, password } = req.body;
     const user = await findByEmail(email);
-    const dataUserPassword = user[DATA].password
-    const dataUserId = user[DATA].id
+    const dataUserPassword = user[DATA].password;
+    const dataUserId = user[DATA].id;
 
     if (!user) return res.status(400).json({ error: "User not found" });
 
     const isPasswordValid = await argon2.verify(dataUserPassword, password);
-    if (!isPasswordValid) return res.status(400).json({ error: "Incorrect password" });
+    if (!isPasswordValid)
+      return res.status(400).json({ error: "Incorrect password" });
 
-    const token = jwt.sign({ userId: dataUserId }, process.env.AUTH_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign(
+      { userId: dataUserId, email: email },
+      process.env.AUTH_SECRET,
+      { expiresIn: "1h" }
+    );
 
-    res.json({ message: "Successful login!", token });
+    res
+      .cookie("access_token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        samesite: "strict",
+        maxAge: 1000 * 60 * 60,
+      })
+      .send({ message: "Successful login!"});
   } catch (error) {
     console.log("Login error", error);
     res.status(500).json({ error: "Login error" });
   }
-}
+};

@@ -1,11 +1,11 @@
 import jwt from "jsonwebtoken";
 
-process.loadEnvFile
+process.loadEnvFile;
 
 export const authMiddleware = (req, res, next) => {
-  const token = req.headers.authorization?.split(" ")[1];
+  const token = req.cookies.access_token;
 
-  if (!token) return res.status(401).json({ error: "Unauthorized access" });
+  if (!token) return res.status(403).json({ error: "Unauthorized access" });
 
   try {
     const decoded = jwt.verify(token, process.env.AUTH_SECRET);
