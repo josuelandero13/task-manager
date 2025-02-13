@@ -24,6 +24,17 @@ nav a.button {
   transition: background-color 0.3s ease;
 }
 
+nav button.buttonLogout {
+  background-color:#ffffff;
+  text-decoration: none;
+  color: #000000;
+  font-size: 18px;
+  margin: 0 10px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
 nav a.title {
   text-decoration: none;
   color: #ffffff;
@@ -31,12 +42,12 @@ nav a.title {
   font-weight: bold;
 }
 
-nav a.button:hover {
+nav button.buttonLogout:hover, a.button:hover {
   background-color: #c1c1c1;
   color: #000000;
 }
 
-nav a.button {
+nav button.buttonLogout, a.button {
   color: black;
   padding: 8px 15px;
   cursor: pointer;

@@ -10,7 +10,7 @@ const Register = () => {
     password: "",
     name: "",
   });
-  
+
   const [error, setError] = useState("");
   const navigate = useNavigate();
 

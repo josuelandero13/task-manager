@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { login } from "../api/authService";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import "../assets/css/Login.css";
 
 const Login = () => {
-  const [form, setForm] = useState({ email: "", last_name: "", password: "", profile_picture: "" });
+  const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const { dispatch } = useAuth();
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!form.email || !form.password || !form.last_name) {
+    if (!form.email || !form.password ) {
       setError("Todos los campos son obligatorios");
       return;
     }
@@ -25,7 +25,6 @@ const Login = () => {
     try {
       const data = await login(form);
       dispatch({ type: "LOGIN", payload: data });
-      localStorage.setItem("token", data.token);
       navigate("/dashboard");
     } catch {
       setError("Credenciales incorrectas");

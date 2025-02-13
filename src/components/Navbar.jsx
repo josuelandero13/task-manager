@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 import "../assets/css/Navbar.css";
 
 
@@ -29,10 +29,7 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <Link className="button" to="/dashboard">
-                Dashboard
-              </Link>
-              <button className="button" onClick={handleLogout}>
+              <button className="buttonLogout" onClick={handleLogout}>
                 Cerrar Sesión
               </button>
             </>
