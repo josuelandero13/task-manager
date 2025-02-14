@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import imageUrl from "../assets/images/logo.png";
 import "../assets/css/Navbar.css";
 
 
@@ -14,19 +15,22 @@ export default function Navbar() {
   return (
     <nav>
       <div>
-        <Link className="title" to="/">
-          Task Manager
-        </Link>
+        <span>
+          <Link className="info-page" to="/">
+            <img src={imageUrl} alt="" className="logo" />
+            <p className="title">TM</p>
+          </Link>
+        </span>
         <div>
           {!state.token ? (
-            <>
-              <Link className="button" to="/login">
-                Login
+            <span className="auth-buttons-container">
+              <Link className="button-auth" to="/login">
+                LOGIN
               </Link>
-              <Link className="button" to="/register">
-                Register
+              <Link className="button-auth" to="/register">
+                REGISTER
               </Link>
-            </>
+            </span>
           ) : (
             <>
               <button className="buttonLogout" onClick={handleLogout}>

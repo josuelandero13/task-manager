@@ -5,6 +5,7 @@ import Home from "../pages/Home";
 import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import Footer from "../components/Footer";
 
 const PrivateRoute = ({ params }) => {
   const { state } = useAuth();
@@ -28,6 +29,7 @@ const AppRoutes = () => {
           }
         />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };

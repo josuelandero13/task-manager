@@ -1,11 +1,19 @@
 nav {
   display: block;
-  background-color: #4b236d;
-  padding: 14px 60px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: hsl(0, 100%, 99%, 0.8);
+  padding: 14px 20rem;
   max-width: 100%;
   margin: 0 auto;
 }
+
+.info-page {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
 
 nav div {
   display: flex;
@@ -13,21 +21,28 @@ nav div {
   justify-content: space-between;
 }
 
-nav a.button {
-  background-color:#ffffff;
+.auth-buttons-container {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  gap: 15px;
+}
+nav a.button-auth {
   text-decoration: none;
-  color: #000000;
-  font-size: 18px;
-  margin: 0 10px;
-  padding: 5px 10px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+  color: #777777;
+  cursor: pointer;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.button-auth:hover {
+  color: black; /* Cambia el color del texto a negro */
 }
 
 nav button.buttonLogout {
   background-color:#ffffff;
   text-decoration: none;
-  color: #000000;
+  color: #777777;
   font-size: 18px;
   margin: 0 10px;
   padding: 5px 10px;
@@ -35,21 +50,19 @@ nav button.buttonLogout {
   transition: background-color 0.3s ease;
 }
 
-nav a.title {
+.title {
   text-decoration: none;
-  color: #ffffff;
+  color: #777777;
   font-size: 24px;
   font-weight: bold;
+  padding: 0px 20px;
 }
 
-nav button.buttonLogout:hover, a.button:hover {
+nav button.buttonLogout:hover {
   background-color: #c1c1c1;
   color: #000000;
 }
 
-nav button.buttonLogout, a.button {
-  color: black;
-  padding: 8px 15px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.logo{
+  height: 50px;
 }
