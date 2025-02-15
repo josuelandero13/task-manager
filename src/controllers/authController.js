@@ -55,9 +55,38 @@ export const login = async (req, res) => {
         samesite: "strict",
         maxAge: 1000 * 60 * 60,
       })
-      .send({ message: "Successful login!"});
+      .send({ message: "Successful login!", dataUserId, token });
   } catch (error) {
-    console.log("Login error", error);
     res.status(500).json({ error: "Login error" });
+  }
+};
+
+export const checkAuth = async (req, res) => {
+
+  try {
+    const token = req.cookies.token;
+
+    if (!token) return res.status(401).json({ error: 'No autenticado' });
+
+    const decoded = jwt.verify(token, process.env.AUTH_SECRET);
+    const user = await findByEmail(decoded.email);
+
+    if (!user) {
+      return res.status(401).json({ error: "Usuario no encontrado" });
+    }
+
+    res.json({
+      id: user._id,
+      email: user.email,
+      username: user.username,
+    });
+  } catch (error) {
+    res.clearCookie("access_token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+
+    res.status(401).json({ error: "Sesión inválida" });
   }
 };
