@@ -1,4 +1,5 @@
 import '../assets/css/Home.css'
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -8,10 +9,10 @@ const Home = () => {
         <p>Organize your tasks efficiently and easily.</p>
       </header>
       <section className="home-features">
-        <div className="feature-card">
+        <Link className="feature-card" to="/task-card">
           <h2>Task Management</h2>
           <p>Create, edit and delete tasks easily.</p>
-        </div>
+        </Link>
         <div className="feature-card">
           <h2>Collaboration</h2>
           <p>Work as a team and share tasks with others.</p>

@@ -5,27 +5,41 @@ export default function Footer() {
   return (
     <footer>
       <div className="wrapper">
-        <img src={imgLogo} alt="logo" className="logo" />
         <a className="logo">
-          TM
+          <img src={imgLogo} alt="logo" className="logo-img" />
+          <span className="logo-text">TM</span>
         </a>
+
         <div className="footer-left">
           <p className="copyright">Copyright 2024 &copy; Task Manager</p>
-          <p className="footer-links">
-            <a>Contact Us</a> |<a>Terms & Conditions</a> |
+          <div className="footer-links">
+            <a>Contact Us</a>
+            <a>Terms & Conditions</a>
             <a>Privacy</a>
-          </p>
+          </div>
         </div>
+
         <div className="footer-right">
-          <a className="social facebook">
-            Facebook
-          </a>
-          <a className="social twitter">
-            Twitter
-          </a>
-          <a className="social google">
-            Linkind
-          </a>
+          <div className="social-links">
+            <a
+              href="https://www.facebook.com/profile.php?id=100078502143370"
+              className="social facebook"
+            >
+              <i className="fab fa-facebook-f"></i>
+              Facebook
+            </a>
+            <a href="https://x.com/jlandero13" className="social twitter">
+              <i className="fab fa-twitter"></i>
+              Twitter
+            </a>
+            <a
+              href="https://www.linkedin.com/in/josue-landero-44015a230/"
+              className="social linkedin"
+            >
+              <i className="fab fa-linkedin-in"></i>
+              LinkedIn
+            </a>
+          </div>
         </div>
       </div>
     </footer>

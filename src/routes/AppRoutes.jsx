@@ -5,11 +5,12 @@ import Home from "../pages/Home";
 import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import TaskDetail from "../components/TaskDetails";
 import Footer from "../components/Footer";
 
-const PrivateRoute = ({ params }) => {
+const PrivateRoute = ({ children }) => {
   const { state } = useAuth();
-  return state.token ? params : <Navigate to="/login" />;
+  return state.isAuthenticated ? children : <Navigate to="/login" />;
 };
 
 const AppRoutes = () => {
@@ -25,6 +26,14 @@ const AppRoutes = () => {
           element={
             <PrivateRoute>
               <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/task/:taskId"
+          element={
+            <PrivateRoute>
+              <TaskDetail />
             </PrivateRoute>
           }
         />
