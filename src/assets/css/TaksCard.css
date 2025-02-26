@@ -1,0 +1,73 @@
+.task-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-left-color: #000000;
+}
+
+.task-link {
+  text-decoration: none;
+  color: #1f2937;
+  transition: color 0.2s ease;
+}
+
+.task-link h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.task-link:hover {
+  color: #6366f1;
+}
+
+.task-card p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.task-card p[data-status="Completada"] {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.task-card p[data-status="Pendiente"] {
+  background: #ffedd5;
+  color: #9a3412;
+}
+
+.task-card button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  color: #ef4444;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.task-card button:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  transform: scale(1.02);
+}
+
+.task-card button:active {
+  transform: scale(0.98);
+}

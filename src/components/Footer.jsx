@@ -11,7 +11,7 @@ export default function Footer() {
         </a>
 
         <div className="footer-left">
-          <p className="copyright">Copyright 2024 &copy; Task Manager</p>
+          <p className="copyright">Copyright 2025 &copy; Task Manager</p>
           <div className="footer-links">
             <a>Contact Us</a>
             <a>Terms & Conditions</a>

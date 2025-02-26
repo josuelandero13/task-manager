@@ -1,7 +1,13 @@
-import { apiFetch } from "./apiClient";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export const getTasks = async () => {
-    return apiFetch("/tasks", { method: "GET" });
+  const res = await fetch(`${apiUrl}/tasks`, {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return res;
 };
 
 export const createTask = async (taskData) => {

@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { useContext, createContext } from "react";
 
 export const AuthContext = createContext();
 
@@ -13,10 +13,13 @@ export const authReducer = (state, action) => {
       isAuthenticated: false,
     }),
     CHECK_AUTH: () => ({
-      user: action.payload,
-      isAuthenticated: !!action.payload,
+      user: null,
+      isAuthenticated: action.payload,
     }),
   };
 
   return actionHandlers[action.type]?.() || state;
 };
+
+export const useAuth = () => useContext(AuthContext);
+

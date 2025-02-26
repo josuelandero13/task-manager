@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../hooks/useAuth.js";
 import Navbar from "../components/Navbar";
 import Home from "../pages/Home";
 import Dashboard from "../pages/Dashboard";
@@ -29,14 +29,14 @@ const AppRoutes = () => {
             </PrivateRoute>
           }
         />
-        <Route
-          path="/task/:taskId"
+        {/* <Route
+          path="/tasks"
           element={
             <PrivateRoute>
               <TaskDetail />
             </PrivateRoute>
           }
-        />
+        /> */}
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../hooks/useAuth.js";
 import imageUrl from "../assets/images/logo.png";
 import { useState } from "react";
 import "../assets/css/Navbar.css";

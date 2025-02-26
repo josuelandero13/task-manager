@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { login } from "../api/authService";
-import { useAuth } from "../../hooks/useAuth";
+import { login } from "../services/authentication.js";
+import { useAuth } from "../hooks/useAuth.js";
 import "../assets/css/Login.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const { dispatch } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -16,16 +18,13 @@ export default function Login() {
     event.preventDefault();
 
     if (!form.email || !form.password) {
-      setError("Todos los campos son obligatorios");
-      return;
+      return setError("Todos los campos son obligatorios");
     }
 
     try {
       const response = await login(form);
-      if (response.ok) {
-        const userData = await response.json();
-        dispatch({ type: "LOGIN", payload: userData });
-      }
+      dispatch({ type: "LOGIN", payload: response.user });
+      navigate("/dashboard");
     } catch (error) {
       throw new Error("Error al inisiar session:", error);
     }

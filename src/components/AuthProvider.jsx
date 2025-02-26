@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from "react";
-import { AuthContext, authReducer } from "../../utils/authContext";
-import { verifyAuth } from "../api/authService.js";
+import { AuthContext, authReducer } from "../hooks/useAuth.js";
+import { verifyAuth } from "../services/authentication.js";
 
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
@@ -11,16 +11,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await verifyAuth({ credentials: "include" });
-
-        if (response.ok) {
-          const userData = await response.json();
-          dispatch({ type: "CHECK_AUTH", payload: userData });
-        } else {
-          dispatch({ type: "LOGOUT" });
-        }
-      } catch (error) {
-        console.error("Error verificando autenticación:", error);
+        const userData = await verifyAuth();
+        const isAuthenticated = userData.ok ? true : false
+        dispatch({ type: "CHECK_AUTH", payload: isAuthenticated });
+      } catch {
         dispatch({ type: "LOGOUT" });
       }
     };
