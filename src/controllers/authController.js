@@ -33,10 +33,11 @@ export const login = async (req, res) => {
     const DATA = 0;
     const { email, password } = req.body;
     const user = await findByEmail(email);
-    const dataUserPassword = user[DATA].password;
-    const dataUserId = user[DATA].id;
+    const dataUserPassword = user[DATA]?.password;
+    const dataUserId = user[DATA]?.id;
 
-    if (!user) return res.status(400).json({ error: "User not found" });
+    if (user.length === 0)
+      return res.status(400).json({ error: "User not found" });
 
     const isPasswordValid = await argon2.verify(dataUserPassword, password);
     if (!isPasswordValid)
@@ -52,28 +53,26 @@ export const login = async (req, res) => {
       .cookie("access_token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        samesite: "strict",
+        samesite: "none",
         maxAge: 1000 * 60 * 60,
       })
-      .send({ message: "Successful login!", dataUserId, token });
+      .send({ message: "Logged in successfully"});
   } catch (error) {
-    res.status(500).json({ error: "Login error" });
+    res.status(500).json({ error: "Login error",error: error });
   }
 };
 
-export const checkAuth = async (req, res) => {
-
+export const authCheck = async (req, res) => {
   try {
     const token = req.cookies.token;
 
-    if (!token) return res.status(401).json({ error: 'No autenticado' });
+    if (!token)
+      return res
+        .status(401)
+        .json({ unauthorized_user: "Unauthenticated user" });
 
     const decoded = jwt.verify(token, process.env.AUTH_SECRET);
     const user = await findByEmail(decoded.email);
-
-    if (!user) {
-      return res.status(401).json({ error: "Usuario no encontrado" });
-    }
 
     res.json({
       id: user._id,
@@ -81,12 +80,6 @@ export const checkAuth = async (req, res) => {
       username: user.username,
     });
   } catch (error) {
-    res.clearCookie("access_token", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-    });
-
     res.status(401).json({ error: "Sesión inválida" });
   }
 };
