@@ -1,0 +1,64 @@
+.task-form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.task-form input {
+  flex: 1;
+  padding: 0.8rem 1.2rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.task-form input:focus {
+  border-color: #000000;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.task-form button {
+  padding: 0.8rem 1.5rem;
+  background-color: #777;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.task-form button:hover {
+  background-color: #000000;
+  transform: translateY(-1px);
+}
+
+.task-form button:active {
+  transform: translateY(0);
+}
+
+/* Versión móvil */
+@media (max-width: 480px) {
+  .task-form {
+    flex-direction: column;
+    margin: 1rem;
+    padding: 1rem;
+  }
+  
+  .task-form input {
+    width: 100%;
+  }
+  
+  .task-form button {
+    width: 100%;
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,146 @@
+footer {
+  background-color: hsl(0, 100%, 99%, 0.8);
+  color: #ecf0f1;
+  padding: 60px 0 30px;
+}
+
+footer .wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+footer .logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-decoration: none;
+}
+
+footer .logo img {
+  height: 52px;
+  width: auto;
+  filter: drop-shadow(0 2px 4px rgba(225, 0, 0, 0.1)) invert(75%);
+}
+
+footer .logo-text {
+  font-size: 29px;
+  font-weight: 700;
+  color: #777777;
+  letter-spacing: 1.5px;
+}
+
+.footer-left {
+  flex: 2;
+  min-width: 300px;
+}
+
+.footer-right {
+  flex: 1;
+  min-width: 200px;
+}
+
+.copyright {
+  font-size: 14px;
+  color: #777777;
+  margin-bottom: 15px;
+  padding-left: 12px;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.footer-links a {
+  color: #777777;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.footer-links a:hover {
+  color: #000000;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.footer-links a::after {
+  content: '•';
+  margin-left: 12px;
+  color: #000000;
+  opacity: 0.5;
+}
+
+.footer-links a:last-child::after {
+  display: none;
+}
+
+.social-links {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ecf0f1;
+  text-decoration: none;
+  padding: 8px 15px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.social i {
+  font-size: 18px;
+}
+
+.social.facebook {
+  background-color: #3b5998;
+}
+
+.social.twitter {
+  background-color: #1da1f2;
+}
+
+.social.linkedin {
+  background-color: #101010;
+}
+
+.social:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+  footer .wrapper {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-left,
+  .footer-right {
+    text-align: center;
+    width: 100%;
+  }
+
+  .footer-links {
+    justify-content: center;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+}
