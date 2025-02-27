@@ -16,8 +16,8 @@ export const taskSchema = z.object({
     ),
 
   status: z
-    .enum(["pending", "in progress", "completed"], {
-      message: "Status must be one of: pending, in progress, or completed",
+    .enum(["pending", "in_progress", "completed"], {
+      message: "Status must be one of: pending, in_progress, or completed",
     })
     .optional(),
 
@@ -40,3 +40,7 @@ export const taskSchema = z.object({
     .positive({ message: "Category ID must be positive" })
     .optional(),
 });
+
+export function validateTaskUpdate(input) {
+  return taskSchema.partial().safeParse(input);
+}

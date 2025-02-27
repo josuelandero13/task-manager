@@ -1,4 +1,4 @@
-import { taskSchema } from "../schemas/taskSchema.js";
+import { validateTaskUpdate } from "../schemas/taskSchema.js";
 import * as taskService from "../services/taskService.js";
 
 export const createTask = async (req, res) => {
@@ -25,7 +25,13 @@ export const createTask = async (req, res) => {
 
 export const updateTask = async (req, res) => {
   try {
-    const validatedData = taskSchema.partial().parse(req.body);
+    const validatedData =  validateTaskUpdate(req.body);
+
+    if (validatedData) {
+      return res
+        .status(400)
+        .json({ message: "Validation error", errors: error.errors });
+    }
 
     const task = await taskService.updateTask(req.params.id, validatedData);
 
@@ -35,14 +41,6 @@ export const updateTask = async (req, res) => {
 
     res.status(200).json({ message: "Task updated successfully", task });
   } catch (error) {
-    console.error(error);
-
-    if (error instanceof z.ZodError) {
-      return res
-        .status(400)
-        .json({ message: "Validation error", errors: error.errors });
-    }
-
     res
       .status(500)
       .json({ message: "Internal server error", error: error.message });
@@ -59,7 +57,6 @@ export const deleteTask = async (req, res) => {
 
     res.status(200).json({ message: "Task deleted successfully" });
   } catch (error) {
-    console.error(error);
     res
       .status(500)
       .json({ message: "Internal server error", error: error.message });
@@ -76,7 +73,6 @@ export const getAllTasks = async (req, res) => {
 
     res.status(200).json(tasks);
   } catch (error) {
-    console.error(error);
     res
       .status(500)
       .json({ message: "Internal server error", error: error.message });
@@ -93,7 +89,6 @@ export const getTaskById = async (req, res) => {
 
     res.status(200).json(task);
   } catch (error) {
-    console.error(error);
     res
       .status(500)
       .json({ message: "Internal server error", error: error.message });
