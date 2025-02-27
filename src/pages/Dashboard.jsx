@@ -1,14 +1,29 @@
-import TaskForm from '../components/TaskForm';
-import TaskCard from '../components/TaskCard';
-import { getTasks } from '../services/task.js';
+import { useEffect, useState } from 'react';
+import TaskForm from '../components/tasks/TaskForm';
+import TaskCard from '../components/tasks/TaskCard';
+import { getAllTasks } from '../services/task';
 import '../assets/css/Dashboard.css';
 
 export default function Dashboard () {
-  const fetchTasks = async () => {
-    const response = await getTasks();
-    const tasks = await response.json();
-    return tasks;
-  };
+  const [tasks, setTasks] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const tasks = await getAllTasks();
+        setTasks(tasks);
+      } catch (error) {
+        setError(error);
+      }
+    };
+
+    fetchTasks();
+  }, []);
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className="dashboard-container">
@@ -20,13 +35,10 @@ export default function Dashboard () {
       <TaskForm />
 
       <section className="task-list">
-        {/* {fetchTasks.map((task) => (
-          <TaskCard
-            key={task.id}
-            task={task}
-          />
-        ))} */}
+        {tasks.map(task => (
+          <TaskCard key={task.id} task={task} />
+        ))}
       </section>
     </div>
   );
-};
+}

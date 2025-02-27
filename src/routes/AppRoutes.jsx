@@ -5,7 +5,7 @@ import Home from "../pages/Home";
 import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import TaskDetail from "../components/TaskDetails";
+import TaskDetail from "../components/tasks/TaskDetails";
 import Footer from "../components/Footer";
 
 const PrivateRoute = ({ children }) => {
@@ -24,19 +24,15 @@ const AppRoutes = () => {
         <Route
           path="/dashboard"
           element={
-            <PrivateRoute>
               <Dashboard />
-            </PrivateRoute>
           }
         />
-        {/* <Route
-          path="/tasks"
+        <Route
+          path="/tasks/:taskId"
           element={
-            <PrivateRoute>
-              <TaskDetail />
-            </PrivateRoute>
+            <TaskDetail />
           }
-        /> */}
+        />
       </Routes>
       <Footer />
     </BrowserRouter>
